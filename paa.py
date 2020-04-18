@@ -11,26 +11,48 @@ query = input("Add query: ")
 #Search Query and get results
 
 def search(query):
-    with webdriver.Firefox() as driver:
+   with webdriver.Firefox() as driver:
         driver.get("https://www.google.com?hl=en")
         driver.find_element_by_xpath("//input[@aria-label='Search']").send_keys(query)
         driver.find_elements_by_xpath("/html/body/div/div[3]/form/div[2]/div[1]/div[3]/center/input[1]")
         searchbtn = driver.find_elements_by_xpath("//input[@aria-label='Google Search']")
         searchbtn[-1].click()
-        time.sleep(10)
+        time.sleep(3)
 
-               
-        
-        #clicking queestions
-        questions = []
-        for questions in driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'match-mod-horizontal-padding')]"):
-            questions.click()
-            time.sleep(5)
-            
+        #Questions
         paa = driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'match-mod-horizontal-padding')]")
-        for i in paa:
-            print(format(i.text))
         
+        index = 0
+        paa[index].click()
+        time.sleep(3)
+        paa = driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'match-mod-horizontal-padding')]")
+        
+        for i in paa:
+            print(format(i[0].text))
+        
+    
+    
+    
+search(query) 
+    
+    
+    
+    
+    
+### Xpath works but no idea how to click by index This works ##
+        #clicking questions
+#        questions = []
+#        for questions in driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'match-mod-horizontal-padding')]"):
+#            questions.click()
+#            time.sleep(5)
+#            
+#        paa = driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'match-mod-horizontal-padding')]")
+#        questions = []
+#        for i in paa:
+#            #print(format(i.text))
+#            q = format(i.text)
+#            questions.append(q)
+#        print(questions)
         
 search(query)
 
