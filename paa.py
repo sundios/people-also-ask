@@ -22,13 +22,14 @@ def search(query):
         #Questions
         paa = driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'match-mod-horizontal-padding')]")
         
+        #clicking Question 1 from here we need to figure out how to click each question and save childrens
         index = 0
         paa[index].click()
         time.sleep(3)
         paa = driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'match-mod-horizontal-padding')]")
         
         for i in paa:
-            print(format(i[0].text))
+            print(format(i.text))
         
     
     
