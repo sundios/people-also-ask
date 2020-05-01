@@ -4,6 +4,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
 from progress.bar import Bar
+from tqdm import tqdm 
+from time import sleep
 
 import itertools
 import threading
@@ -25,6 +27,12 @@ def animate():
         sys.stdout.flush()
         time.sleep(0.1)
     sys.stdout.write('\rDone!     ')
+    
+def Bar(seconds):
+    for i in tqdm(range(seconds)):
+        sleep(1)
+
+    
 
 
 #Search Query and get results
@@ -32,7 +40,7 @@ def animate():
 options = Options()
 options.headless = True
 
-def search(query):
+def search(query,clicks):
        t = threading.Thread(target=animate)
        t.start()
        with webdriver.Firefox(options=options) as driver:
@@ -49,6 +57,7 @@ def search(query):
     
             
             for i in range(clicks):
+                Bar(1)
                 print(i)
                 paa[i].click()
                 paa = driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'match-mod-horizontal-padding')]")
@@ -57,12 +66,9 @@ def search(query):
         
 
     
-search(query)
-#loading bar finishes
+search(query,clicks)
+
 done = True 
-    
-
-
 
 
 
