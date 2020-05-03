@@ -17,7 +17,7 @@ from selenium.webdriver.firefox.options import Options
 
 query = input("Add query: ")
 clicks = input("How many questions do you want to click? : ")
-lang = input("Please select your languange. (For english type en for spanish type es and for french type fr) : ")
+lang = input("Please select your languange. (For english type en. For spanish type es. For French type fr) : ")
 clicks = int(clicks)  # parse string into an integer
 
 
@@ -34,7 +34,7 @@ def search(query,clicks,lang):
        with webdriver.Firefox(options=options) as driver:
            driver.get("https://www.google.com?hl=" + lang)
            
-           #Checking if its english then run everything on english
+           #English
            if lang == "en":
                 driver.find_element_by_xpath("//input[@aria-label='Search']").send_keys(query)
                 driver.find_elements_by_xpath("/html/body/div/div[3]/form/div[2]/div[1]/div[3]/center/input[1]")
@@ -44,7 +44,7 @@ def search(query,clicks,lang):
                 #clicking questions
                 clickingKW(clicks,driver)
                 
-            #if not english then should be spanish
+            #Spanish
            if lang == "es":
                 driver.find_element_by_xpath("//input[@aria-label='Buscar']").send_keys(query)
                 driver.find_elements_by_xpath("/html/body/div/div[3]/form/div[2]/div[1]/div[3]/center/input[1]")
@@ -52,7 +52,7 @@ def search(query,clicks,lang):
                 searchbtn[-1].click()
                 
                 
-                #clicking questions
+            #French
                 clickingKW(clicks,driver)
            if lang == "fr":
                 driver.find_element_by_xpath("//input[@aria-label='Rech.']").send_keys(query)
@@ -68,6 +68,7 @@ def search(query,clicks,lang):
            
 def clickingKW(clicks,driver):
     paa = driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'match-mod-horizontal-padding')]")
+    #Its range because clicks  is int.
     for i in range(clicks):
         print(i)
         try:
