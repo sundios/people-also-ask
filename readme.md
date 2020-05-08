@@ -44,7 +44,14 @@ $ export PATH=$PATH:/path/to/
 
 ## Usage
 
-Once we install the requirements and the driver, we can go ahead and run our script on the terminal using:
+Once we install the requirements and the driver, we can go ahead and run our script. There are two scripts that have similar outputs.
+
+- paa.py : Outputs only questions.
+
+- paa-q&A.py : Outputs questions & answers. *Still work in progress out put is very messy*
+
+ 
+To run the script we go on the terminal and make sure we are in the correct folder. We type:
 
 
 ```bash
