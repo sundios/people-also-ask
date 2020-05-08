@@ -13,6 +13,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
 
 
+
 #variables that user has to input
 
 query = input("Add query: ")
@@ -27,8 +28,6 @@ options.headless = True
 
 """ Search function. It opens Google, adds query in search box clicks search. Then it looks for question box and clicks N times
 each of the questions and prints them out. The more question it clicks the more answers we get"""
-
-
 
 def search(query,clicks,lang):
        with webdriver.Firefox(options=options) as driver:
@@ -80,7 +79,7 @@ def clickingKW(clicks,driver):
             raise Exception('There are no questions to Click! Index is out of Range. Please add another Keyword that contains questions')
 
             
-            
+#running function            
 search(query,clicks,lang)
 
 
