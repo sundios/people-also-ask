@@ -1,5 +1,5 @@
 
-# People Also Ask scraper
+# People Also Ask Google Scraper
 
 PPA scraper is a Python script that based on a query it scrapes Google people also ask questions. 
 
@@ -41,14 +41,13 @@ $ export PATH=$PATH:/path/to/
 
 ```
 
-
 ## Usage
 
 Once we install the requirements and the driver, we can go ahead and run our script. There are two scripts that have similar outputs.
 
-- paa.py : Outputs only questions.
+- **paa.py** : Outputs only questions.
 
-- paa-q&A.py : Outputs questions & answers. *Still work in progress out put is very messy*
+- **paa-q&A.py** : Outputs questions & answers. *Still work in progress out put is very messy*
 
  
 To run the script we go on the terminal and make sure we are in the correct folder. We type:
@@ -60,23 +59,23 @@ python3 paa.py
 
 Once you run the script it will ask you to provide 3 inputs that are necessary.
 
-1. Add Query: Query that you want to get the answers from.
+1. **Add Query:** Query that you want to get the answers from.
 
-E.g
+**E.g**
 
 ```
 netflix stock
 ```
 
-2. How many questions do you want to click?: The more clicks you add the more question you get. Usually one clicks adds 2 or 3 questions and by default Google provides 4 questions. So if we add 5 as clicks then we would get around 15 questions.
+2. **How many questions do you want to click?:** The more clicks you add the more question you get. Usually one clicks adds 2 or 3 questions and by default Google provides 4 questions. So if we add 5 as clicks then we would get around 15 questions.
 
-3. Please select your languange: I added only 3 languages, English (en) , Spanish (es) and French (fr). Make sure that the language is in lowcaps.
+3. **Please select your languange:** I added only 3 languages, English (en) , Spanish (es) and French (fr). Make sure that the language is in lowcaps.
 
 ## Result
 
 Once you get allthe parameters the script will go and get all the questions for you. Then your output will consist of the question index that its being clicked, and the questions.
 
-E.g 
+**E.g** 
 ```
 0
 Is Netflix a good stock to buy?
@@ -104,6 +103,6 @@ Is Disney stock a buy?
 Is Netflix a buy or sell?
 ```
 
-## Contributing
+## Issues & Contributing
 Pull requests are welcome. If you have any issues please open an issue to see if I can help.
 
