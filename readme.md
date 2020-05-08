@@ -1,5 +1,5 @@
 
-Need to install
+Installing requirements(for now its only sublime)
 
 ```
 pip install -r requirements.txt
