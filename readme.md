@@ -33,12 +33,18 @@ with webdriver.Firefox(executable_path='/path/to/geckodriver') as driver:
 
 ```
 
-2.(**RECOMENNDED**)The second way its to add folder that contains geckodriver using export (only folder, not geckodriver). We go to the terminal and type:
+2.The second way its to add folder that contains geckodriver using export (only folder, not geckodriver). We go to the terminal and type:
 
 ```bash
 
 $ export PATH=$PATH:/path/to/
 
+```
+
+3.- (**RECOMENNDED**) Make geckodriver available system wide, open up your Terminal App and perform the following command: 
+
+```
+brew install geckodriver
 ```
 
 ## Usage
