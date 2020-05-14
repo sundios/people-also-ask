@@ -14,6 +14,9 @@ from selenium.webdriver.firefox.options import Options
 import pandas as pd
 from random import randint
 from time import sleep
+import sys
+import time
+
     
 
 
@@ -94,16 +97,32 @@ def clickingKW(clicks,driver):
             
 
 """ File where we will save all keywords we want to run. Make sure the file is .xlsx and follows always the same format"""
-df = pd.read_excel (r'/Users/kburchardt/Desktop/Projects/people-also-ask/keywords.xlsx')
+df = pd.read_excel (r'keywords.xlsx')
 
 print(' Your list of Keywords is:\n',df)
 
 
+""" Loops that runs all the jeywords from our File. This has a Random sleep time between 1 and 20 seconds
+so that google doesnt give us a captcha if we do a high number of keyowrds"""
+
 for i in df['Keywords']:
     search(i,clicks,lang)
-    #Random sleep so that we dont get Google Captcha
-    sleep(randint(10,20))
     
+    #Random sleep so that we dont get Google Captcha
+    sleep = randint(1,20)
+    print('Sleep time is', sleep)
+    
+    #Counter to show in terminal
+    for i in range(sleep):
+        sys.stdout.write(str(i)+' ')
+        sys.stdout.flush()
+        time.sleep(1)
+                   
+    
+    
+    
+    
+
     
 
 
