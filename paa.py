@@ -11,12 +11,15 @@ from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
-
+import pandas as pd
+from random import randint
+from time import sleep
+    
 
 
 #variables that user has to input
 
-query = input("Add query: ")
+#query = input("Add query: ") Commented out since we will do multiple queries.
 clicks = input("How many questions do you want to click? : ")
 lang = input("Please select your languange. (For english type en. For spanish type es. For French type fr) : ")
 clicks = int(clicks)  # parse string into an integer
@@ -40,6 +43,9 @@ def search(query,clicks,lang):
                 searchbtn = driver.find_elements_by_xpath("//input[@aria-label='Google Search']")
                 searchbtn[-1].click()
                 
+                #printing query
+                print("Query is: ", query)
+                
                 #clicking questions
                 clickingKW(clicks,driver)
                 
@@ -50,15 +56,22 @@ def search(query,clicks,lang):
                 searchbtn = driver.find_elements_by_xpath("//input[@aria-label='Buscar con Google']")
                 searchbtn[-1].click()
                 
+                #printing query
+                print("Palabra clave es: ", query)
                 
-            #French
+                
+                #clicking questions
                 clickingKW(clicks,driver)
+                
+            #French    
            if lang == "fr":
                 driver.find_element_by_xpath("//input[@aria-label='Rech.']").send_keys(query)
                 driver.find_elements_by_xpath("/html/body/div/div[3]/form/div[2]/div[1]/div[3]/center/input[1]")
                 searchbtn = driver.find_elements_by_xpath("//input[@aria-label='Recherche Google']")
                 searchbtn[-1].click()
                 
+                #Printing Query
+                print("la requête est: ", query)
                 
                 #clicking questions
                 clickingKW(clicks,driver)
@@ -79,21 +92,22 @@ def clickingKW(clicks,driver):
             raise Exception('There are no questions to Click! Index is out of Range. Please add another Keyword that contains questions')
 
             
-#running function            
-search(query,clicks,lang)
+
+""" File where we will save all keywords we want to run. Make sure the file is .xlsx and follows always the same format"""
+df = pd.read_excel (r'/Users/kburchardt/Desktop/Projects/people-also-ask/keywords.xlsx')
+
+print(' Your list of Keywords is:\n',df)
+
+
+for i in df['Keywords']:
+    search(i,clicks,lang)
+    #Random sleep so that we dont get Google Captcha
+    sleep(randint(10,20))
+    
+    
 
 
 
-
-# This is for guidance
-#
-#persons = []
-#for person in driver.find_elements_by_class_name('person'):
-#    title = person.find_element_by_xpath('.//div[@class="title"]/a').text
-#    company = person.find_element_by_xpath('.//div[@class="company"]/a').text
-#
-#    persons.append({'title': title, 'company': company})
-#
 
 
 
