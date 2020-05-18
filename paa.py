@@ -15,11 +15,8 @@ import pandas as pd
 from random import randint
 from time import sleep
 import sys
-import time
 
     
-
-
 #variables that user has to input
 
 #query = input("Add query: ") Commented out since we will do multiple queries.
@@ -113,8 +110,8 @@ for i in df['Keywords']:
     print('Sleep time is', sleep)
     
     #Counter to show in terminal
-    for i in range(sleep):
-        sys.stdout.write(str(i)+' ')
+    for k in range(sleep):
+        sys.stdout.write(str(k)+' ')
         sys.stdout.flush()
         time.sleep(1)
                    
