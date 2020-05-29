@@ -76,11 +76,11 @@ def search(query,clicks,lang):
                 #clicking questions
                 clickingKW(clicks,driver)
             
-"""Function that clicks  N Questions from here we need to figure out how to click each question and save parent question and childrens"""
+"""Function that clicks N Questions from here we need to figure out how to click each question and save parent question and childrens"""
            
 def clickingKW(clicks,driver):
     paa = driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'match-mod-horizontal-padding')]")
-    #Its range because clicks  is int.
+    #Its range because clicks is int.
     for i in range(clicks):
         print(i)
         try:
@@ -101,6 +101,8 @@ print(' Your list of Keywords is:\n',df)
 
 """ Loops that runs all the jeywords from our File. This has a Random sleep time between 1 and 20 seconds
 so that google doesnt give us a captcha if we do a high number of keyowrds"""
+
+import time
 
 for i in df['Keywords']:
     search(i,clicks,lang)
