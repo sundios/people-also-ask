@@ -15,7 +15,6 @@ import pandas as pd
 
 # query = "uber eats" Not being used
 
-
 clicks = 4
 clicks = int(clicks)  # parse string into an integer
 
@@ -38,8 +37,12 @@ def search(query,clicks):
             
             paa = driver.find_elements_by_css_selector('div.related-question-pair')
             for i in range(clicks):
-                paa[i].click()
-                paa = driver.find_elements_by_css_selector('div.related-question-pair')
+                try:
+                    paa[i].click()
+                    paa = driver.find_elements_by_css_selector('div.related-question-pair')
+                except IndexError as  k:
+                    print('There are no questions to Click! Index is out of Range. Please add another Keyword that contains questions')
+                pass
             list_paa = [] 
             for j in paa:
                     p = format(j.text)
@@ -51,8 +54,9 @@ def search(query,clicks):
     
             df = pd.DataFrame(list_paa)
             
-            df.to_csv('/Users/konradburchardt/Desktop/People Also Ask/scripts/files/' + query + '.csv', index=False)
-                    
+            df.to_csv( query + '.csv', index=False)
+            
+            
                     
 """ File where we will save all keywords we want to run. Make sure the file is .xlsx and follows always the same format"""
 df = pd.read_excel (r'keywords.xlsx')          
@@ -74,22 +78,25 @@ for i in df['Keywords']:
         sys.stdout.flush()
         time.sleep(1)
         
-
+""" Function that puts together all the CSV files into one big master file 'Biglist.csv'"""
 def csv_concat():
     import os, glob
     import pandas as pd
 
     #Files that we want to run to get totals
-    files = sorted(glob.glob('/Users/konradburchardt/Desktop/People Also Ask/scripts/files/*.csv'))
+    files = sorted(glob.glob('*.csv'))
     
     #opening all files and selecting 4 top rows and onoy 5 columns
     big_df = []
-    for f in files:
-        df = pd.read_csv(f,index_col=False)
-        print(df)
-        d = df.iloc[0:4,0:6]
-        big_df.append(d)
-       
+    for f in files: 
+        #try & Except so that  we can keep going through the loop even if file has no columns.
+        try:
+            df = pd.read_csv(f,index_col=False)
+            print(df)
+            d = df.iloc[0:4,0:6]
+            big_df.append(d)
+        except:
+            continue
         
     #merging all into one DF
     merged = pd.concat(big_df)
