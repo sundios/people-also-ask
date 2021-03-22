@@ -2,14 +2,12 @@
 # People Also Ask Google Scraper
 
 PPA scraper is a Python script that based on a query it scrapes Google people also ask questions. 
-You can see this script in action on  https://simpletools.io
+You can see this script in action on https://simpletools.io
 
-
-Note: *This is a work in Progress* 
 
 ## Installation
 
-To install and run this script we need to install our requirements.txt. Since we are using Firefox we need to download the latest geckodriver driver.
+To install and run this script we need to install the requirements.txt and the driver. Since we are using Chrome we need to download the latest chrome driver.
 
 
 ### Requirements
@@ -20,42 +18,69 @@ To install requirements.txt please run the following on the terminal.
 pip install requirements.txt
 ```
 
-### Geckodriver
+### Chrome driver
 
-You can find it the latest firefox driver [here](https://github.com/mozilla/geckodriver/releases).
+#### Step one (Check Chrome Version)
 
-Once we download the driver you can save it in the same folder than the script is /people-also-ask/ and we can do two things to make sure it runs:
+Check which chrome version are you using.
 
-1. Add executable_path arg in webdriver:
-
-```bash
-
-with webdriver.Firefox(executable_path='/path/to/geckodriver') as driver:
-
-```
-
-2.The second way its to add folder that contains geckodriver using export (only folder, not geckodriver). We go to the terminal and type:
+you can do it via the terminal using the following command:
 
 ```bash
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version
+```
 
-$ export PATH=$PATH:/path/to/
+or you an simply go into chrome and click on Chrome> About Google Chrome. you should see somehting like:
+
+```
+Google Chrome is up to date
+Version 89.0.4389.90 (Official Build) (x86_64)
+```
+
+#### Step two (Download Chrome Driver)
+
+Download the correct version of chrome driver.
+
+Go to https://chromedriver.chromium.org/downloads
+
+and click on you chrome version.
+
+E.g: 'Chrome version 89, please download ChromeDriver 89.0.4389.23'
+
+
+#### Step three (Chrome driver permisions)
+
+If you are on MacOS Catalina do the following:
+
+Navigate to path where your chromedriver file is located and run 
+
+```bash
+xattr -d com.apple.quarantine chromedriver
 
 ```
 
-3.- (**RECOMENNDED**) Make geckodriver available system wide, open up your Terminal App and perform the following command: 
+#### Step four (chromedriver path)
 
+You can do either solution:
+
+a.- Move chrome driver to /usr/local/bin/ 
+
+Make sure you are on the folder chromedriver is and run
+
+```bash
+sudo mv chromedriver /usr/local/bin/
 ```
-brew install geckodriver
+
+b.- Update chrome driver path on the python script.
+
+On line 35 update `executable_path` with your chrome driver path
+
+```python
+executable_path='add_path_here'
 ```
+
 
 ## Usage
-
-Once we install the requirements and the driver, we can go ahead and run our script. There are two scripts that have similar outputs.
-
-- **paa.py** : Outputs only questions.
-
-- **paa-q&A.py** : Outputs questions & answers. *Still work in progress out put is very messy*
-
  
 To run the script we go on the terminal and make sure we are in the correct folder. We type:
 
@@ -80,34 +105,25 @@ netflix stock
 
 ## Result
 
-Once you get allthe parameters the script will go and get all the questions for you. Then your output will consist of the question index that its being clicked, and the questions.
+Once you run the script it will output a df with all the question that found for the query you rquested. The output should look like this:
 
 **E.g** 
 ```
-0
-Is Netflix a good stock to buy?
-Why is the Netflix stock going down?
-Will Netflix stock go up?
-What was Netflix original stock price?
-
-
-1
-Is Netflix a good stock to buy?
-Why is the Netflix stock going down?
-Will Netflix stock go up?
-What was Netflix original stock price?
-Should I buy Tesla stock now?
-What is the best stock to buy right now?
-
-2
-Is Netflix a good stock to buy?
-Why is the Netflix stock going down?
-Will Netflix stock go up?
-What was Netflix original stock price?
-Should I buy Tesla stock now?
-What is the best stock to buy right now?
-Is Disney stock a buy?
-Is Netflix a buy or sell?
+                                         Questions
+0                        Is Netflix a buy or sell?
+1                   Why is Netflix stock dropping?
+2               Does Netflix stock pay a dividend?
+3                           Is Netflix overvalued?
+4             What stock is best to buy right now?
+5                  Is Walmart a good stock to buy?
+6                          Is Netflix going broke?
+7                        What stocks are up today?
+8   What is the most expensive stock in the world?
+9               What stock pays the best dividend?
+10                        Do Amazon pay dividends?
+11                Does Apple stock pay a dividend?
+12                      Can you invest in Netflix?
+13                  What is the future of Netflix?
 ```
 
 ## Issues & Contributing
