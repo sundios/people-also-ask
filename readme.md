@@ -20,7 +20,7 @@ pip install requirements.txt
 
 ### Chrome driver
 
-#### Step one (Check Chrome Version)
+#### 1.- Step one (Check Chrome Version)
 
 Check which chrome version are you using.
 
@@ -37,7 +37,7 @@ Google Chrome is up to date
 Version 89.0.4389.90 (Official Build) (x86_64)
 ```
 
-#### Step two (Download Chrome Driver)
+#### 2.- Step two (Download Chrome Driver)
 
 Download the correct version of chrome driver.
 
@@ -48,7 +48,7 @@ and click on you chrome version.
 E.g: 'Chrome version 89, please download ChromeDriver 89.0.4389.23'
 
 
-#### Step three (Chrome driver permisions)
+#### 3.- Step three (Chrome driver permisions)
 
 If you are on MacOS Catalina do the following:
 
@@ -59,7 +59,7 @@ xattr -d com.apple.quarantine chromedriver
 
 ```
 
-#### Step four (chromedriver path)
+#### 4.- Step four (chromedriver path)
 
 You can do either solution:
 
@@ -101,13 +101,13 @@ netflix stock
 
 2. **How many questions do you want to click?:** The more clicks you add the more question you get. Usually one clicks adds 2 or 3 questions and by default Google provides 4 questions. So if we add 5 as clicks then we would get around 15 questions.
 
-3. **Please select your languange:** I added only 3 languages, English (en) , Spanish (es) and French (fr). Make sure that the language is in lowcaps.
+3. **Please select your languange:** I added only 2 languages, English (en) and Spanish (es). Make sure that the language is in lowcaps.
 
 ## Result
 
 Once you run the script it will output a df with all the question that found for the query you rquested. The output should look like this:
 
-**E.g** 
+**English E.g** 
 ```
                                          Questions
 0                        Is Netflix a buy or sell?
@@ -125,6 +125,24 @@ Once you run the script it will output a df with all the question that found for
 12                      Can you invest in Netflix?
 13                  What is the future of Netflix?
 ```
+
+**Spanish E.g** 
+```
+                                           Questions
+0                    ¿Cuánto cuesta Netflix al mes?
+1          ¿Cuánto cuesta Netflix al año en España?
+2              ¿Cómo iniciar una sesión de Netflix?
+3   ¿Cuánto cuesta una cuenta en Netflix Venezuela?
+4            ¿Cuánto cuesta Netflix en México 2020?
+5                       ¿Qué ofrece Netflix basico?
+6            ¿Cuánto vale Netflix en Colombia 2020?
+7                        ¿Cuánto vale Netflix 2020?
+8                   ¿Cuánto está Netflix Perú 2020?
+9                ¿Dónde pongo mi código de Netflix?
+10  ¿Cómo hago para tener el mes gratis de Netflix?
+11             ¿Por qué no puedo acceder a Netflix?
+```
+
 
 ## Issues & Contributing
 Pull requests are welcome. If you have any issues please open an issue to see if I can help.
