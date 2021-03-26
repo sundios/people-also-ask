@@ -65,14 +65,14 @@ Parameters: - clicks: number of clicks we will use on the questions
             - driver: Driver that we are using"""
 
 def clickingKW(clicks,driver): 
-    paa = driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'hide-focus-ring cbphWd')]")
+    paa = driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'cbphWd')]")
     #Its range because clicks is int.
     for i in range(clicks):
         print('Clicking question #',i+1)
         try:
             paa[i].click()
             time.sleep( 2 )
-            paa = driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'hide-focus-ring cbphWd')]")
+            paa = driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'cbphWd')]")
             # for j in paa:
             #     print(format(j.text))
         except:
