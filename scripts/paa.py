@@ -3,8 +3,6 @@
 """
 @author: konradburchardt
 """
-
-
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
@@ -13,7 +11,7 @@ import pandas as pd
 from random import randint
 import time
 import sys
-    
+from selenium.webdriver.common.by import By
 # Variables that user has to input
 
 query = input("Add your query: ")
@@ -36,9 +34,9 @@ def search(query,clicks,lang):
     
     #headless option so it doesnt open chrome everytime we run it
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.headless = True
+    chrome_options.headless = False
 
-    driver = webdriver.Chrome(options=chrome_options,executable_path='/usr/local/bin/chromedriver')  # Optional argument, if not specified will search path.
+    driver = webdriver.Chrome(options=chrome_options,executable_path='C:/xampp/htdocs/paa/chromedriver.exe')  # Optional argument, if not specified will search path.
    
     driver.get("https://www.google.com?hl=" + lang)
 
@@ -47,7 +45,7 @@ def search(query,clicks,lang):
         print(' Number of clicks we will do is:',clicks)
         print('Language you selected is:',lang)
 
-        driver.find_element_by_xpath("//input[@aria-label='Search']").send_keys(query+Keys.RETURN)
+        driver.find_element(By.XPATH,"/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input").send_keys(query+Keys.RETURN)
         print(query)
         clickingKW(clicks,driver)
 
@@ -56,7 +54,7 @@ def search(query,clicks,lang):
         print(' Number of clicks we will do is:',clicks)
         print('Language you selected is:',lang)
         
-        driver.find_element_by_xpath("//input[@aria-label='Buscar']").send_keys(query+Keys.RETURN)
+        driver.find_element(By.XPATH,"//input[@aria-label='Buscar']").send_keys(query+Keys.RETURN)
         print(query)
         clickingKW(clicks,driver)
 
@@ -65,16 +63,18 @@ Parameters: - clicks: number of clicks we will use on the questions
             - driver: Driver that we are using"""
 
 def clickingKW(clicks,driver): 
-    paa = driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'cbphWd')]")
+    paa = driver.find_elements(By.CLASS_NAME,'r21Kzd')
     #Its range because clicks is int.
+    time.sleep(2)
     for i in range(clicks):
         print('Clicking question #',i+1)
         try:
             paa[i].click()
-            time.sleep( 2 )
-            paa = driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'cbphWd')]")
-            # for j in paa:
-            #     print(format(j.text))
+            time.sleep(4)
+            paa = driver.find_elements(By.CLASS_NAME,'r21Kzd')
+            for j in paa:
+              print(format(j.text))
+            print(paa)
         except:
             continue
             raise Exception('There are no questions to Click! Index is out of Range. Please add another Keyword that contains questions')
@@ -82,7 +82,7 @@ def clickingKW(clicks,driver):
     for j in paa:
         p = format(j.text)
         p = p.splitlines()
-        
+        print(p)
         list_paa.append(p)          
 
     df = pd.DataFrame(list_paa,columns=['Questions'])
