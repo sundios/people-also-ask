@@ -44,7 +44,7 @@ def search(query,clicks,lang):
     
     #headless option so it doesnt open chrome everytime we run it
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.headless = False
+    chrome_options.headless = True
 
     driver = webdriver.Chrome(options=chrome_options,executable_path='/Users/konradburchadtpizarro-local/Desktop/chromedriver')  # Optional argument, if not specified will search path.
    
