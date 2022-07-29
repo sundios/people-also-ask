@@ -28,6 +28,9 @@ clicks = int(clicks)  # parse string into an integer
 
 def search(query,clicks,lang):
     '''
+    Search function. It opens Google, adds query in search box clicks search. Then it looks for question box and clicks N times
+each of the questions and prints them out. The more question it clicks the more answers we get
+
     ----------
     query : string
         Query we want to look.
