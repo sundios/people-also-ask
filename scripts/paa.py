@@ -49,7 +49,7 @@ each of the questions and prints them out. The more question it clicks the more 
     chrome_options = webdriver.ChromeOptions()
     chrome_options.headless = True
 
-    driver = webdriver.Chrome(options=chrome_options,executable_path='/Users/konradburchadtpizarro-local/Desktop/chromedriver')  # Optional argument, if not specified will search path.
+    driver = webdriver.Chrome(options=chrome_options,executable_path='/usr/local/bin/chromedriver')  # Optional argument, if not specified will search path.
    
     driver.get("https://www.google.com?hl=" + lang)
 
