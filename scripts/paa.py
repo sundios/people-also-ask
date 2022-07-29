@@ -23,22 +23,30 @@ clicks = int(clicks)  # parse string into an integer
 
 
 
-""" Search function. It opens Google, adds query in search box clicks search. Then it looks for question box and clicks N times
-each of the questions and prints them out. The more question it clicks the more answers we get
 
-parameters: - query: Query we want to look.
-            - clicks: number of times we will click on the question.
-            - lang: Language we want the questions. Only English and Spanish
-"""
 
 
 def search(query,clicks,lang):
+    '''
+    ----------
+    query : string
+        Query we want to look.
+    clicks : int
+        Number of times we will click on the question.
+    lang :string
+        Language we want the questions. Only English and Spanish
+
+    Returns
+    -------
+    None.
+
+    '''
     
     #headless option so it doesnt open chrome everytime we run it
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.headless = True
+    chrome_options.headless = False
 
-    driver = webdriver.Chrome(options=chrome_options,executable_path='/usr/local/bin/chromedriver')  # Optional argument, if not specified will search path.
+    driver = webdriver.Chrome(options=chrome_options,executable_path='/Users/konradburchadtpizarro-local/Desktop/chromedriver')  # Optional argument, if not specified will search path.
    
     driver.get("https://www.google.com?hl=" + lang)
 
@@ -60,19 +68,36 @@ def search(query,clicks,lang):
         print(query)
         clickingKW(clicks,driver)
 
-"""Function that clicks N Questions.
-Parameters: - clicks: number of clicks we will use on the questions
-            - driver: Driver that we are using"""
 
 def clickingKW(clicks,driver): 
-    paa = driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'cbphWd')]")
+    '''
+    Function that clicks N Questions.
+
+    Parameters
+    ----------
+    clicks : int
+        number of clicks we will use on the questions
+    driver : ?
+        Driver that we are using
+
+    Raises
+    ------
+    Exception
+        If there are no questions to click then an exception will be raised
+
+    Returns
+    -------
+    None.
+
+    '''
+    paa = driver.find_elements_by_class_name("related-question-pair")
     #Its range because clicks is int.
     for i in range(clicks):
         print('Clicking question #',i+1)
         try:
             paa[i].click()
             time.sleep( 2 )
-            paa = driver.find_elements_by_xpath("//span/following-sibling::div[contains(@class,'cbphWd')]")
+            paa = driver.find_elements_by_class_name("wWOJcd")
             # for j in paa:
             #     print(format(j.text))
         except:
@@ -82,7 +107,7 @@ def clickingKW(clicks,driver):
     for j in paa:
         p = format(j.text)
         p = p.splitlines()
-        
+    
         list_paa.append(p)          
 
     df = pd.DataFrame(list_paa,columns=['Questions'])
