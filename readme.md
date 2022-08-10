@@ -99,9 +99,9 @@ Once you run the script it will ask you to provide 3 inputs that are necessary.
 netflix stock
 ```
 
-2. **How many questions do you want to click?:** The more clicks you add the more question you get. Usually one clicks adds 2 or 3 questions and by default Google provides 4 questions. So if we add 5 as clicks then we would get around 15 questions.
+2. **How many questions do you want to click?:** The more clicks you add the more question you get. Usually 1 click adds 2 or 3 questions and by default Google provides 4 questions. So if we add 5 as clicks then we would get around 15 questions.
 
-3. **Please select your languange:** I added only 2 languages, English (en) and Spanish (es). Make sure that the language is in lowcaps.
+3. **Please select your languange:** I added only 2 languages, English (en) and Spanish (es). Make sure that the language is in lowcase.
 
 ## Result
 
