@@ -2,7 +2,7 @@
 # People Also Ask Google Scraper
 
 PPA scraper is a Python script that based on a query it scrapes Google people also ask questions. 
-You can see this script in action on https://simpletools.io
+You can see this script in action on https://www.keywordresearchtool.io/
 
 
 ## Installation
