@@ -1,18 +1,21 @@
 
 # People Also Ask Google Scraper
 
-PPA scraper is a Python script that based on a query it scrapes Google people also ask questions. 
-You can see this script in action on https://www.keywordresearchtool.io/
+PPA scraper is a Python script that, based on a query scrapes Google people also ask questions. 
+You can see this script in action here --> <a href="https://www.kwrds.ai/" rel="follow">[https://www.keywordresearchtool.io/](https://www.kwrds.ai/)</a>
+
+
+<a href="https://bmc.link/sundios" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 
 ## Installation
 
-To install and run this script we need to install the requirements.txt and the driver. Since we are using Chrome we need to download the latest chrome driver.
+To install and run this script, we need to install the requirements.txt and the driver. Since we are using Chrome, we need to download the latest Chrome driver.
 
 
 ### Requirements
 
-To install requirements.txt please run the following on the terminal.
+To install requirements.txt, please run the following on the terminal.
 
 ```bash
 pip install requirements.txt
@@ -22,7 +25,7 @@ pip install requirements.txt
 
 #### 1.- Step one (Check Chrome Version)
 
-Check which chrome version are you using.
+Check which Chrome version you are using.
 
 you can do it via the terminal using the following command:
 
@@ -30,29 +33,29 @@ you can do it via the terminal using the following command:
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version
 ```
 
-or you an simply go into chrome and click on Chrome> About Google Chrome. you should see somehting like:
+or you can simply go into Chrome and click on Chrome> About Google Chrome. you should see something like:
 
 ```
-Google Chrome is up to date
+Google Chrome is up to date.
 Version 89.0.4389.90 (Official Build) (x86_64)
 ```
 
 #### 2.- Step two (Download Chrome Driver)
 
-Download the correct version of chrome driver.
+Download the correct version of Chrome driver.
 
 Go to https://chromedriver.chromium.org/downloads
 
-and click on you chrome version.
+And click on your chrome version.
 
 E.g: 'Chrome version 89, please download ChromeDriver 89.0.4389.23'
 
 
-#### 3.- Step three (Chrome driver permisions)
+#### 3.- Step three (Chrome driver permissions)
 
 If you are on MacOS Catalina do the following:
 
-Navigate to path where your chromedriver file is located and run 
+Navigate to the path where your Chromedriver file is located and run 
 
 ```bash
 xattr -d com.apple.quarantine chromedriver
@@ -65,15 +68,15 @@ You can do either solution:
 
 a.- Move chrome driver to /usr/local/bin/ 
 
-Make sure you are on the folder chromedriver is and run
+Make sure you are on the folder chromedriver is and run.
 
 ```bash
 sudo mv chromedriver /usr/local/bin/
 ```
 
-b.- Update chrome driver path on the python script.
+b.- Update the chrome driver path on the Python script.
 
-On line 35 update `executable_path` with your chrome driver path
+On line 35, update `executable_path` with your Chrome driver path
 
 ```python
 executable_path='add_path_here'
@@ -82,7 +85,7 @@ executable_path='add_path_here'
 
 ## Usage
  
-To run the script we go on the terminal and make sure we are in the correct folder. We type:
+To run the script, we go to the terminal and ensure we are in the correct folder. We type:
 
 
 ```bash
@@ -99,13 +102,13 @@ Once you run the script it will ask you to provide 3 inputs that are necessary.
 netflix stock
 ```
 
-2. **How many questions do you want to click?:** The more clicks you add the more question you get. Usually 1 click adds 2 or 3 questions and by default Google provides 4 questions. So if we add 5 as clicks then we would get around 15 questions.
+2. **How many questions do you want to click?:** The more clicks you add the more question you get. Usually, 1 click adds 2 or 3 questions and by default, Google provides 4 questions. So if we add 5 as clicks, then we would get around 15 questions.
 
-3. **Please select your languange:** I added only 2 languages, English (en) and Spanish (es). Make sure that the language is in lowcase.
+3. **Please select your language:** I added only 2 languages, English (en) and Spanish (es). Make sure that the language is in lowercase.
 
 ## Result
 
-Once you run the script it will output a df with all the question that found for the query you rquested. The output should look like this:
+Once you run the script, it will output a df with all the questions that found for the query you requested. The output should look like this:
 
 **English E.g** 
 ```
