@@ -19,7 +19,7 @@ To install and run this script, we need to install the requirements.txt and the 
 To install requirements.txt, please run the following on the terminal.
 
 ```bash
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ### Chrome driver
