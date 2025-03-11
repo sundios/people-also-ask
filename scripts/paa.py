@@ -4,141 +4,123 @@
 @author: konradburchardt
 """
 
-
-from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.firefox.options import Options
+import undetected_chromedriver as uc
 import pandas as pd
-from random import randint
 import time
-import sys
-    
-# Variables that user has to input
+import random
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 
+def get_stealth_driver():
+    """Set up an undetected Chrome WebDriver to avoid Google bot detection."""
+
+    options = uc.ChromeOptions()
+    options.headless = False  # Set to True for headless mode
+    options.add_argument("--disable-blink-features=AutomationControlled")  # Prevent bot detection
+    options.add_argument("--disable-popup-blocking")
+
+    driver = uc.Chrome(options=options)
+
+    print("✅ Stealth Chrome Driver Ready")
+    return driver
+
+def search(query, clicks, lang):
+    """
+    Opens Google, enters a query, clicks PAA questions, and extracts answers.
+    Parameters:
+    query (str): The search query
+    clicks (int): Number of PAA questions to click
+    lang (str): Language code ('en' or 'es')
+    """
+
+    driver = get_stealth_driver()
+
+    try:
+        # Step 1: Open Google
+        google_url = f"https://www.google.com?hl={lang}"
+        print(f"🔎 Opening Google: {google_url}")
+        driver.get(google_url)
+        time.sleep(random.uniform(5, 8))  # Human-like delay
+
+        # Step 2: Find search bar and enter query
+        search_box = driver.find_element(By.NAME, "q")
+        search_box.send_keys(query)
+        search_box.send_keys(Keys.RETURN)
+
+        # Wait for results to load
+        time.sleep(random.uniform(6, 10))
+
+        # Click and extract PAA questions and answers
+        extract_paa_questions(driver, clicks)
+
+    except Exception as e:
+        print(f"❌ Error: {str(e)}")
+
+    finally:
+        driver.quit()
+
+def extract_paa_questions(driver, clicks):
+    """
+    Clicks 'People Also Ask' (PAA) questions in order (top-to-bottom)
+    and extracts all expanded questions.
+    Parameters:
+    driver: Selenium WebDriver instance
+    clicks (int): Number of PAA questions to click
+    """
+    try:
+        paa_data = set()  # Store unique questions
+        clicked_count = 0  # Track how many questions were clicked
+
+        while clicked_count < clicks:
+            # Get all PAA questions currently available
+            paa_questions = driver.find_elements(By.XPATH, "//div[contains(@jsname,'N760b')]//div[contains(@jsname,'tJHJj')]")
+
+            if clicked_count >= len(paa_questions):
+                print("⚠️ No more new questions available to click.")
+                break  # Stop if we run out of questions
+
+            # Click the next available question (top-to-bottom)
+            try:
+                question = paa_questions[clicked_count]  # Select the question in order
+                question_text = question.text.strip()
+
+                if question_text and question_text not in paa_data:
+                    print(f"🔹 Clicking question #{clicked_count+1}: {question_text}")
+                    driver.execute_script("arguments[0].click();", question)
+                    time.sleep(random.uniform(2, 3))  # Delay to simulate human behavior
+
+                    paa_data.add(question_text)  # Store question to avoid duplicates
+                    clicked_count += 1  # Increment click count
+
+                    # Wait and refresh the list after clicking
+                    time.sleep(2)
+
+            except Exception as e:
+                print(f"⚠️ Skipping question due to error: {str(e)}")
+                break  # Stop clicking if an error occurs
+
+        # Step 3: Extract all expanded questions (including new ones added)
+        time.sleep(3)  # Allow new questions to load
+        all_visible_questions = driver.find_elements(By.XPATH, "//div[contains(@jsname,'N760b')]//div[contains(@jsname,'tJHJj')]")
+
+        for q in all_visible_questions:
+            q_text = q.text.strip()
+            if q_text:
+                paa_data.add(q_text)
+
+        # Convert to DataFrame and save results
+        df = pd.DataFrame(sorted(paa_data), columns=["Questions"])
+        df.to_csv("paa_results.csv", index=False, encoding="utf-8")
+        print("\n✅ Saved results to 'paa_results.csv'")
+        print(df)
+
+    except Exception as e:
+        print(f"❌ Error clicking PAA questions: {str(e)}")
+
+# Get user input
 query = input("Add your query: ")
-clicks = input("How many questions do you want to click?: ")
-lang = input("Please select your languange. (For english type en. For spanish type es. For French type fr): ")
-clicks = int(clicks)  # parse string into an integer
+clicks = int(input("How many questions do you want to click?: "))
+lang = input("Please select your language (en/es): ")
 
-
-
-
-
-
-def search(query,clicks,lang):
-    '''
-    Search function. It opens Google, adds query in search box clicks search. Then it looks for question box and clicks N times
-each of the questions and prints them out. The more question it clicks the more answers we get
-
-    ----------
-    query : string
-        Query we want to look.
-    clicks : int
-        Number of times we will click on the question.
-    lang :string
-        Language we want the questions. Only English and Spanish
-
-    Returns
-    -------
-    None.
-
-    '''
-    
-    #headless option so it doesnt open chrome everytime we run it
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.headless = True
-
-    driver = webdriver.Chrome(options=chrome_options,executable_path='/usr/local/bin/chromedriver')  # Optional argument, if not specified will search path.
-   
-    driver.get("https://www.google.com?hl=" + lang)
-
-    if lang == "en":
-        print('The keyword you selected is:', query)
-        print(' Number of clicks we will do is:',clicks)
-        print('Language you selected is:',lang)
-
-        driver.find_element_by_xpath("//input[@aria-label='Search']").send_keys(query+Keys.RETURN)
-        print(query)
-        clickingKW(clicks,driver)
-
-    if lang =="es":
-        print('The keyword you selected is:', query)
-        print(' Number of clicks we will do is:',clicks)
-        print('Language you selected is:',lang)
-        
-        driver.find_element_by_xpath("//input[@aria-label='Buscar']").send_keys(query+Keys.RETURN)
-        print(query)
-        clickingKW(clicks,driver)
-
-
-def clickingKW(clicks,driver): 
-    '''
-    Function that clicks N Questions.
-
-    Parameters
-    ----------
-    clicks : int
-        number of clicks we will use on the questions
-    driver : ?
-        Driver that we are using
-
-    Raises
-    ------
-    Exception
-        If there are no questions to click then an exception will be raised
-
-    Returns
-    -------
-    None.
-
-    '''
-    paa = driver.find_elements_by_class_name("related-question-pair")
-    #Its range because clicks is int.
-    for i in range(clicks):
-        print('Clicking question #',i+1)
-        try:
-            paa[i].click()
-            time.sleep( 2 )
-            paa = driver.find_elements_by_class_name("wWOJcd")
-            # for j in paa:
-            #     print(format(j.text))
-        except:
-            continue
-            raise Exception('There are no questions to Click! Index is out of Range. Please add another Keyword that contains questions')
-    list_paa = [] 
-    for j in paa:
-        p = format(j.text)
-        p = p.splitlines()
-    
-        list_paa.append(p)          
-
-    df = pd.DataFrame(list_paa,columns=['Questions'])
-    
-    df = df.dropna()
-
-#Error Handling when a query doesnt contain any questions. Error onoy occurs when dataframe is empty. Depending on Language we return different """
-    if df.empty and lang == 'en':
-        print('DataFrame is empty! There are no questions for your Keyword. Try a different keyword')
-        data = [['No results. Please Try again or try a different Keyword','No Results','No Results']]
-        df = pd.DataFrame(data,columns=['Questions','Sentiment','Magnitude'])
-        print(df)
-
-    if df.empty and lang == 'es':
-        print('DataFrame vacio! No hay preguntas para tu Keyword. Porfavor intenta nuevamente con una keyword diferente')
-        data = [['No hay resultados. Intenta nuevamente con una keyword diferente Please Try again or try a different Keyword','Sin Resultados','Sin Resultados']]
-        df = pd.DataFrame(data,columns=['Questions','Sentiment','Magnitude'])
-        print(df)
-
-    elif lang == 'en':
-        print(df)
-        print('Visit https://simpletools.io to find more SEO tools like this.')
-        df.to_csv(query+'.csv', index = False)
-
-    elif lang == 'es':
-        print(df)
-        print('Visita https://simpletools.io para encontrar mas herramientas de SEO como esta')
-        df.to_csv(query+'.csv', index = False)
-
-
-search(query,clicks,lang)
+# Run search
+search(query, clicks, lang)
