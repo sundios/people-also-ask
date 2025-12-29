@@ -1,7 +1,7 @@
 
 # People Also Ask Google Scraper
 
-PPA scraper is a Python script that, based on a query scrapes Google people also ask questions. 
+PAA scraper is a Python script that, based on a query scrapes Google people also ask questions. 
 
 If you want to get Free People Also Ask queries please visit --> <a href="https://www.kwrds.ai/" rel="follow">[https://www.kwrds.ai/](https://www.kwrds.ai/)</a>
 
